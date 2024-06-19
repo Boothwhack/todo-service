@@ -10,5 +10,24 @@ services:
   backend:
     build:
       context: backend
+    depends_on:
+      - database
+    secrets:
+      - database_password
     environment:
-      DATABASE_URL: sqlite:///database.sqlite
+      DATABASE_URL: postgresql://postgres@database/todo-db
+      DATABASE_PASSWORD_FILE: /run/secrets/database_password
+
+  database:
+    image: postgres
+    secrets:
+      - database_password
+    environment:
+      POSTGRES_PASSWORD_FILE: /run/secrets/database_password
+      POSTGRES_DB: todo-db
+    volumes:
+      - ./data:/var/lib/postgresql/data
+
+secrets:
+  database_password:
+    environment: DATABASE_PASSWORD

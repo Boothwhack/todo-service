@@ -3,6 +3,7 @@ name = "backend"
 version = "1.0.0"
 dependencies = [
     "fastapi",
+    "psycopg2",
+    "pydantic-settings",
     "sqlalchemy",
-    "pydantic-settings"
 ]
