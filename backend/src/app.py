@@ -3,6 +3,7 @@ from functools import cache
 from typing import Annotated
 from pathlib import Path
 
+import models
 from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy import Engine, create_engine, make_url
 from sqlalchemy.orm import Session
@@ -40,7 +41,11 @@ def get_db_engine(settings: SettingsDep) -> Engine:
         password = settings.database_password_file.read_text(encoding="utf-8")
         url = url.set(password=password)
 
-    return create_engine(url)
+    engine = create_engine(url)
+
+    models.BaseModel.metadata.create_all(engine)
+
+    return engine
 
 
 EngineDep = Annotated[Engine, Depends(get_db_engine)]
