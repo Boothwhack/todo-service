@@ -3,8 +3,9 @@ FROM python
 RUN mkdir /app
 WORKDIR /app
 
-# tilføj pyproject og installer dependencies
+# tilføj pyproject
 ADD pyproject.toml /app
+# opretter en virtual environment og installere ud fra pyproject.toml
 RUN python -m venv .venv && \
     .venv/bin/pip install -e .
 

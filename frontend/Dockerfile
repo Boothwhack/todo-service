@@ -1,7 +1,7 @@
+# navngiv første stage så vi kan referere til den længere nede
 FROM node AS build
 
 RUN mkdir /app
-
 WORKDIR /app
 
 # tilføj filer krævet for at installere dependencies
@@ -21,6 +21,7 @@ ADD public/ /app/public
 # compile app'en. output bliver gemt i /app/dist
 RUN npm run build
 
+# start på ny fra en blank nginx image
 FROM nginx
 
 COPY --from=build /app/dist/frontend/browser/ /www

@@ -1,21 +1,30 @@
 services:
   frontend:
     build:
+      # byg ud fra Dockerfile i frontend mappen
       context: frontend
+    # udgiv container'ens port 80 på host maskinen's port 8080
     ports:
       - 8080:80
+    # frontend delegere til api serveren, så den skal starte først
     depends_on:
       - backend
 
   backend:
     build:
+      # byg ud fra Dockerfile i backend mappen
       context: backend
+    # backend skal kunne oprette forbindelse til databasen
     depends_on:
       - database
+    # vi skal bruge password til databasen for at forbinde
     secrets:
       - database_password
     environment:
+      # url til database forbindelsen
+      # siger at vi benytter postgresql database driveren, logger på som 'postgres' brugeren på serveren 'database', og åbner 'todo-db' databasen
       DATABASE_URL: postgresql://postgres@database/todo-db
+      # sti til hvor serveren kan læse password'et til 'postgres' brugeren
       DATABASE_PASSWORD_FILE: /run/secrets/database_password
 
   database:
@@ -24,10 +33,13 @@ services:
       - database_password
     environment:
       POSTGRES_PASSWORD_FILE: /run/secrets/database_password
+      # som default hedder databasen 'postgres', overskriv det
       POSTGRES_DB: todo-db
+    # gem postgres data i mappen 'data' på host maskinen
     volumes:
       - ./data:/var/lib/postgresql/data
 
 secrets:
+  # indlæs password fra environment variable
   database_password:
     environment: DATABASE_PASSWORD
