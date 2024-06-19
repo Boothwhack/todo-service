@@ -54,7 +54,7 @@ def get_session(engine: EngineDep) -> Session:
 SessionDep = Annotated[Session, Depends(get_session)]
 
 
-@app.get("/todos")
+@app.get("/api/todos")
 async def get_todos(session: SessionDep):
     todos = session.query(Todo).all()
     return {"todos": [
@@ -67,7 +67,7 @@ class CreateTodo:
     label: str
 
 
-@app.post("/todos")
+@app.post("/api/todos")
 async def create_todo(opts: CreateTodo, session: SessionDep):
     todo = Todo(label=opts.label, checked=False)
     session.add(todo)
@@ -82,7 +82,7 @@ class UpdateTodo:
     checked: bool | None = None
 
 
-@app.put("/todos/{ident}")
+@app.put("/api/todos/{ident}")
 async def update_todo(ident: int, opts: UpdateTodo, session: SessionDep):
     todo = session.get(Todo, ident)
     if todo is None:
@@ -98,7 +98,7 @@ async def update_todo(ident: int, opts: UpdateTodo, session: SessionDep):
     return {"id": todo.id, "label": todo.label, "checked": todo.checked}
 
 
-@app.delete("/todos/{ident}")
+@app.delete("/api/todos/{ident}")
 async def delete_todo(ident: int, session: SessionDep):
     todo = session.get(Todo, ident)
     if todo is None:
