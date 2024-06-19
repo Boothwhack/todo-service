@@ -1,0 +1,6 @@
+<main>
+  <ng-container *ngIf="todos$ | async as todos">
+    <app-todo *ngFor="let todo of todos" [todo]="todo"/>
+    <app-new-todo (onCreate)="submitTodo($event)"/>
+  </ng-container>
+</main>
