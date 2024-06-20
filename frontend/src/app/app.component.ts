@@ -2,7 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 import {Todo, TodosService} from "./todos.service";
 import {AsyncPipe, NgForOf, NgIf} from "@angular/common";
-import {Observable, NEVER, Subject, Subscription} from "rxjs";
+import {Subject, Subscription} from "rxjs";
 import {TodoComponent} from "./todo/todo.component";
 import {NewTodoComponent} from "./new-todo/new-todo.component";
 

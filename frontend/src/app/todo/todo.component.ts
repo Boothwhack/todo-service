@@ -3,7 +3,7 @@ import {Todo} from "../todos.service";
 import {CheckboxComponent} from "../checkbox/checkbox.component";
 import {ButtonComponent} from "../button/button.component";
 import {TextFieldComponent} from "../text-field/text-field.component";
-import {debounce, debounceTime, Subject, Subscription} from "rxjs";
+import {debounceTime, Subject, Subscription} from "rxjs";
 
 @Component({
   selector: "app-todo",
