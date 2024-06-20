@@ -1,2 +1,10 @@
-<input type="text" [(ngModel)]="label">
-<button (click)="submitTodo()">Add</button>
+<div class="new-todo__container">
+  <app-button class="new-todo__add" (click)="submitTodo()">
+    <span class="material-symbols-outlined new-todo__add-icon">add</span>
+  </app-button>
+  <app-text-field
+    [(value)]="label"
+    placeholder="Tilføj Todo"
+    (keydown.enter)="onEnter($event)"
+    class="new-todo__input"/>
+</div>

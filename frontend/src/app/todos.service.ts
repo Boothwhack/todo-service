@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable, map} from "rxjs";
 
 export interface Todo {
+  id: number;
   label: string;
   checked: boolean;
 }
@@ -29,5 +30,13 @@ export class TodosService {
 
   createTodo(label: string): Observable<Todo> {
     return this.http.post<PostTodoResponse>("/api/todos", {label});
+  }
+
+  updateTodo(id: number, todo: Partial<Todo>) {
+    return this.http.put(`/api/todos/${id}`, todo);
+  }
+
+  deleteTodo(id: number) {
+    return this.http.delete(`/api/todos/${id}`);
   }
 }

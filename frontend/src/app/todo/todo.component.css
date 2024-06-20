@@ -1,0 +1,41 @@
+.todo__container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 1.4rem;
+  margin: 1rem 0;
+  gap: 0.8rem;
+  max-width: 500px;
+  opacity: 1;
+  transform: scale(1);
+}
+
+.todo__container--deleted {
+  transition: opacity 0.2s, transform 0.2s ease-in;
+  transform: scale(0.9);
+  opacity: 0;
+}
+
+.todo__container--hidden {
+  visibility: hidden;
+}
+
+.todo__label {
+  flex-grow: 1;
+}
+
+.todo__trash {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s, visibility 0.2s;
+}
+
+.todo__trash-icon {
+  font-size: 1.8rem;
+  margin: 0.5rem;
+}
+
+.todo__container:hover > .todo__trash {
+  opacity: 1;
+  visibility: visible;
+}

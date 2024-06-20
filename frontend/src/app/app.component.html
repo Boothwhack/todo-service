@@ -1,6 +1,13 @@
-<main>
-  <ng-container *ngIf="todos$ | async as todos">
-    <app-todo *ngFor="let todo of todos" [todo]="todo"/>
+<main class="app__container">
+  <h1>Min Todo-liste</h1>
+  <ng-container *ngIf="!loading">
+    <app-todo
+      *ngFor="let todo of cachedTodos; trackBy todoIdentify"
+      [todo]="todo"
+      (checked)="checkTodo(todo.id, $event)"
+      (renamed)="renameTodo(todo.id, $event)"
+      (deleted)="deleteTodo(todo.id)"
+    />
     <app-new-todo (onCreate)="submitTodo($event)"/>
   </ng-container>
 </main>

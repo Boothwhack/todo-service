@@ -1,1 +1,16 @@
-<p>{{todo.label}}</p>
+<div class="todo__container" #container>
+  <app-checkbox [checked]="todo.checked" (checkedChange)="setChecked($event)"/>
+  <app-text-field
+    class="todo__label"
+    [value]="todo.label"
+    (valueChange)="setLabel($event)"
+    [stealth]="true"
+    (keydown.enter)="defocus($event)"/>
+  <div class="todo__trash">
+    <app-button (pressed)="deleteTodo()">
+      <span class="material-symbols-outlined todo__trash-icon">
+        delete
+      </span>
+    </app-button>
+  </div>
+</div>
